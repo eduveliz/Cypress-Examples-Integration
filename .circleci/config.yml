@@ -1,5 +1,6 @@
 version: 2
-
+orbs:
+  node: circleci/node@5.0.2
 # build job parameters as a template
 defaults: &defaults
   working_directory: ~/app
@@ -23,7 +24,6 @@ jobs:
           - v2-deps-{{ .Branch }}-
           - v2-deps-
       - run: npm install
-      - run: npm start
       - save_cache:
           key: v2-deps-{{ .Branch }}-{{ checksum "package-lock.json" }}
           paths:
@@ -34,6 +34,12 @@ jobs:
           paths:
             - .cache
             - app
+  start:
+    executor: node/default
+    steps:
+      - checkout
+      - node/install-packages
+      - run: npm start
 
   testA:
     <<: *defaults
@@ -57,6 +63,7 @@ workflows:
   build_and_test:
     jobs:
       - build
+      - start
       - testA:
           requires:
             - build
