@@ -1,17 +1,51 @@
+version: 2
+
+# build job parameters as a template
+defaults: &defaults
+  working_directory: ~/app
+  docker:
+    # the Docker image with Cypress dependencies
+    - image: cypress/base:8
+      environment:
+        ## this enables colors in the output
+        TERM: xterm
+
 jobs:
-  test:
-    executor:
-      name: node/default
+  build:
+    <<: *defaults
     steps:
       - checkout
-      - node/install-packages
-      -
-        run:
-          command: "npm run test"
-orbs:
-  node: circleci/node@5.0.2
-version: "2.1"
+      - run: pwd
+      - run: ls
+      - run: npm ci
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - .cache
+            - app
+
+  testA:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/
+      - run: ls -la cypress
+      - run: ls -la cypress/integration
+      - run:
+          name: Running E2E tests A
+          command: $(npm bin)/cypress run --spec cypress/integration/login_spect.js --reporter junit --reporter-options
+      - store_test_results:
+          path: results
+      - store_artifacts:
+          path: cypress/videos
+      - store_artifacts:
+          path: cypress/screenshots
+
 workflows:
-  test_my_app:
+  version: 2
+  build_and_test:
     jobs:
-      - test
+      - build
+      - testA:
+          requires:
+            - build
