@@ -1,69 +1,91 @@
-version: 2
-orbs:
-  node: circleci/node@5.0.2
-# build job parameters as a template
-defaults: &defaults
-  working_directory: ~/app
-  docker:
-    # the Docker image with Cypress dependencies
-    - image: cypress/base:8
-      environment:
-        ## this enables colors in the output
+--- 
+defaults: 
+  docker: 
+    - 
+      environment: 
         TERM: xterm
-
-jobs:
-  build:
-    <<: *defaults
-    steps:
+      image: "cypress/base:8"
+  working_directory: ~/app
+jobs: 
+  build: 
+    docker: 
+      - 
+        environment: 
+          TERM: xterm
+        image: "cypress/base:8"
+    steps: 
       - checkout
-      - run: pwd
-      - run: ls
-      - restore_cache:
-          keys:
-          - v2-deps-{{ .Branch }}-{{ checksum "package-lock.json" }}
-          - v2-deps-{{ .Branch }}-
-          - v2-deps-
-      - run: npm install
-      - save_cache:
-          key: v2-deps-{{ .Branch }}-{{ checksum "package-lock.json" }}
-          paths:
+      - 
+        run: pwd
+      - 
+        run: ls
+      - 
+        restore_cache: 
+          keys: 
+            - "v2-deps-{{ .Branch }}-{{ checksum \"package-lock.json\" }}"
+            - "v2-deps-{{ .Branch }}-"
+            - v2-deps-
+      - 
+        run: "npm install"
+      - 
+        save_cache: 
+          key: "v2-deps-{{ .Branch }}-{{ checksum \"package-lock.json\" }}"
+          paths: 
             - ~/.npm
             - ~/.cache
-      - persist_to_workspace:
-          root: ~/
-          paths:
+      - 
+        persist_to_workspace: 
+          paths: 
             - .cache
             - app
-  start:
+          root: ~/
+    working_directory: ~/app
+  start: 
     executor: node/default
-    steps:
+    steps: 
       - checkout
       - node/install-packages
-      - run: npm start
-
-  testA:
-    <<: *defaults
-    steps:
-      - attach_workspace:
+      - 
+        run: 
+          comamnd: "npm run start"
+  testA: 
+    docker: 
+      - 
+        environment: 
+          TERM: xterm
+        image: "cypress/base:8"
+    steps: 
+      - 
+        attach_workspace: 
           at: ~/
-      - run: ls -la cypress
-      - run: ls -la cypress/integration
-      - run:
-          name: Running E2E tests A
-          command: $(npm bin)/cypress run --spec cypress/integration/Login/login_spec.js
-      - store_test_results:
+      - 
+        run: "ls -la cypress"
+      - 
+        run: "ls -la cypress/integration"
+      - 
+        run: 
+          command: "$(npm bin)/cypress run --spec cypress/integration/Login/login_spec.js"
+          name: "Running E2E tests A"
+      - 
+        store_test_results: 
           path: results
-      - store_artifacts:
+      - 
+        store_artifacts: 
           path: cypress/videos
-      - store_artifacts:
+      - 
+        store_artifacts: 
           path: cypress/screenshots
-
-workflows:
-  version: 2
-  build_and_test:
-    jobs:
+    working_directory: ~/app
+orbs: 
+  node: circleci/node@5.0.2
+version: 2
+workflows: 
+  build_and_test: 
+    jobs: 
       - build
       - start
-      - testA:
-          requires:
+      - 
+        testA: 
+          requires: 
             - build
+  version: 2
