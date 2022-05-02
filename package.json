@@ -1,6 +1,7 @@
 {
   "name": "integration",
   "version": "0.1.0",
+  "main": "index.js",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.9.0",
@@ -34,6 +35,6 @@
     ]
   },
   "devDependencies": {
-    "cypress": "^9.6.0"
+    "cypress": "4.9.0"
   }
 }
