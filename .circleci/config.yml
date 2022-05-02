@@ -1,18 +1,18 @@
-orbs: 
-  cypress: cypress-io/cypress@1
-version: 2.1
-workflows: 
-  build: 
-    jobs: 
-      - 
-        cypress/install: 
-          build: "npm run build"
-      - 
-        cypress/run: 
-          group: "all tests"
-          parallel: true
-          parallelism: 4
-          record: false
-          requires: 
-            - cypress/install
-          start: "npm start"
+jobs:
+  test:
+    executor:
+      name: node/default
+      tag: "16"
+    steps:
+      - checkout
+      - node/install-packages
+      -
+        run:
+          command: "npm run test"
+orbs:
+  node: circleci/node@5.0.2
+version: "2.1"
+workflows:
+  test_my_app:
+    jobs:
+      - test
