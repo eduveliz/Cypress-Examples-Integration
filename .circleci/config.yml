@@ -15,7 +15,6 @@ jobs:
     <<: *defaults
     steps:
       - checkout
-      - node/install-packages
       - run: pwd
       - run: ls
       - restore_cache:
