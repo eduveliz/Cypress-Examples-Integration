@@ -1,4 +1,6 @@
 version: 2.1
+orbs: 
+  node: circleci/node@5.0.2
 
 # build job parameters as a template
 defaults: &defaults
@@ -33,6 +35,16 @@ jobs:
           paths:
             - .cache
             - app
+            
+  start:
+    executor: node/default
+    steps:
+      - checkout
+      - node/install-packages:
+          cache-path: ~/project/node_modules
+          override-ci-command: npm install
+      - run: npm run start
+      - run: npm run
 
   testA:
     <<: *defaults
@@ -54,6 +66,7 @@ workflows:
   build_and_test:
     jobs:
       - build
+      - start
       - testA:
           requires:
             - build
