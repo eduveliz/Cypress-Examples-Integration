@@ -43,7 +43,7 @@ jobs:
       - run: ls -la cypress/integration
       - run:
           name: Running E2E tests A
-          command: $(npm bin)/cypress run --spec cypress/integration/Login/login_spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
+          command: $(npm bin)/cypress run --spec cypress/integration/Login/login_spec.js
       - store_test_results:
           path: results
       - store_artifacts:
