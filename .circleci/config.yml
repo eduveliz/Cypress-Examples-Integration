@@ -15,7 +15,6 @@ jobs:
     <<: *defaults
     steps:
       - checkout
-      - node/install-packages
       - run: pwd
       - run: ls
       - persist_to_workspace:
