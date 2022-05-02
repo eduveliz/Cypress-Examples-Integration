@@ -37,7 +37,7 @@ jobs:
   testA:
     <<: *defaults
     steps:
-      - run: npm start
+      - run: npm run start
       - attach_workspace:
           at: ~/
       - run: ls -la cypress
