@@ -18,7 +18,6 @@ jobs:
       - node/install-packages
       - run: pwd
       - run: ls
-      - run: npm ci
       - persist_to_workspace:
           root: ~/
           paths:
