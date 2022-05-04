@@ -1,7 +1,7 @@
 describe('login account test', () => {
 
   beforeEach(() => {
-    cy.visit(Cypress.env('HOST'))
+    cy.visit('/')
   })
 
   it('Login', () => {
