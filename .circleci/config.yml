@@ -18,6 +18,8 @@ jobs:
       - run:
           name: Run e2e tests with Cypruss via cypress run
           command: $(npm bin)/cypress run --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
+      - store_test_results:
+          path: results
 
 workflows:
   build_and_test:
