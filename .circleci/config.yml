@@ -14,7 +14,7 @@ jobs:
           command: npm install
       - run:
           name: Compile and start development server on port 3000
-          command: npm ci
+          command: npm run ci
           background: true
 
 workflows:
