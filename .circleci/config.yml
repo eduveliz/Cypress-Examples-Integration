@@ -40,9 +40,9 @@ jobs:
     executor: node/default
     steps:
       - checkout
-      - node/install-packages:
-          override-ci-command: npm install
-      - run: npm run ci
+      - node/install-packages
+      - run:
+          command: npm run ci
 
   testA:
     <<: *defaults
