@@ -40,11 +40,9 @@ jobs:
     executor: node/default
     steps:
       - checkout
-      - node/install-packages:
-          cache-path: ~/project/node_modules
-          override-ci-command: npm install
-      - run: npm run start
-      - run: npm run
+      - node/install-packages
+      - run:
+          command: npm run ci
 
   testA:
     <<: *defaults
@@ -55,7 +53,7 @@ jobs:
       - run: ls -la cypress/integration
       - run:
           name: Running E2E tests A
-          command: $(npm bin)/npm ci"
+          command: $(npm bin)/cypress run --spec cypress/integration/login_spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
       - store_test_results:
           path: results
       - store_artifacts:
@@ -66,6 +64,6 @@ workflows:
   build_and_test:
     jobs:
       - build
-      - testA:
+      - start:
           requires:
             - build
