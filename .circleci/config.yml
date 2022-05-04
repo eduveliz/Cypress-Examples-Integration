@@ -1,27 +1,15 @@
 version: 2.1
-jobs:
-  run_tests:
-    docker:
-      - image: cypress/base:12
-        environment:
-          TERM: xterm
-    working_directory: ~/app
-    steps:
-      - checkout
-      - run:
-          name: Install project dependencies
-          command: npm install
-      - run:
-          name: Compile and start development server on port 3000
-          command: npm start
-          background: true
-      - run:
-          name: Run e2e tests with Cypruss via cypress run
-          command: $(npm bin)/cypress run --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
-      - store_test_results:
-          path: results
-
+orbs:
+  cypress: cypress-io/cypress@1
 workflows:
-  build_and_test:
+  build:
     jobs:
-      - run_tests
+      - cypress/install
+      - cypress/run:
+          store_artifacts: true
+          requires:
+            - cypress/install
+          record: true
+          parallel: true
+          parallelism: 2
+          group: 2 machines
