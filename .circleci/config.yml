@@ -24,7 +24,7 @@ jobs:
           - v2-deps-{{ .Branch }}-{{ checksum "package-lock.json" }}
           - v2-deps-{{ .Branch }}-
           - v2-deps-
-      - run: npm ci
+      - run: npm install
       - save_cache:
           key: v2-deps-{{ .Branch }}-{{ checksum "package-lock.json" }}
           paths:
@@ -49,8 +49,6 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/
-      - run: ls -la cypress
-      - run: ls -la cypress/integration
       - run:
           name: Running E2E tests A
           command: npm run ci 
