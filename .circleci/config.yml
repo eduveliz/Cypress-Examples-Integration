@@ -14,11 +14,8 @@ jobs:
           command: npm install
       - run:
           name: Compile and start development server on port 3000
-          command: npm start
+          command: npm ci
           background: true
-      - run:
-          name: Run e2e tests with Cypruss via cypress run
-          command: $(npm bin)/cypress run
 
 workflows:
   build_and_test:
