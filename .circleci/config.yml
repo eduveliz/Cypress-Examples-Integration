@@ -1,16 +1,28 @@
-version: '2.1'
-orbs:
-  node: circleci/node@5.0.2
+version: 2
+
 jobs:
-  test:
-    executor: node/default
+  build:
+    docker:
+      # the Docker image with Cypress dependencies
+      - image: cypress/base:8
+        environment:
+          ## this enables colors in the output
+          TERM: xterm
+    working_directory: ~/app
+    parallelism: 1
     steps:
       - checkout
-      - node/install-packages:
-          cache-path: ~/project/node_modules
-          override-ci-command: npm install
-      - run: npm run ci
-workflows:
-  test_my_app:
-    jobs:
-      - test
+      - restore_cache:
+          keys:
+            - v2-deps-{{ .Branch }}-{{ checksum "package-lock.json" }}
+            - v2-deps-{{ .Branch }}-
+            - v2-deps-
+      - run: npm ci
+      - save_cache:
+          key: v2-deps-{{ .Branch }}-{{ checksum "package-lock.json" }}
+          paths:
+            - ~/.npm
+            - ~/.cache
+      - run:
+          name: Running E2E tests with JUnit reporter
+          command: npm run ci
