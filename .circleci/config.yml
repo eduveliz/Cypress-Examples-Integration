@@ -42,8 +42,9 @@ jobs:
       - checkout
       - node/install-packages:
           cache-path: ~/project/node_modules
-          override-ci-command: npm ci
-      - run: npm run ci
+          override-ci-command: npm install
+      - run: npm run start
+      - run: npm run
 
   testA:
     <<: *defaults
@@ -64,4 +65,7 @@ workflows:
   version: 2
   build_and_test:
     jobs:
-      - start
+      - build
+      - testA:
+          requires:
+            - build
