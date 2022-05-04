@@ -22,7 +22,7 @@
     "build": "react-scripts build",
     "test": "cypress run",
     "eject": "react-scripts eject",
-    "ci": "start-server-and-test 3000 '$(npm bin)/cypress run --spec cypress/integration/login_spec.js'"
+    "ci": "start-server-and-test start http://localhost:3000 test"
   },
   "browserslist": {
     "production": [
