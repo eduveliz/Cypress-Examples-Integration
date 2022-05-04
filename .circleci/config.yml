@@ -1,67 +1,17 @@
-version: 2.1
-orbs: 
+version: '2.1'
+orbs:
   node: circleci/node@5.0.2
-
-# build job parameters as a template
-defaults: &defaults
-  working_directory: ~/app
-  docker:
-    # the Docker image with Cypress dependencies
-    - image: cypress/base:8
-      environment:
-        ## this enables colors in the output
-        TERM: xterm
-
 jobs:
-  build:
-    <<: *defaults
-    steps:
-      - checkout
-      - run: pwd
-      - run: ls
-      - restore_cache:
-          keys:
-          - v2-deps-{{ .Branch }}-{{ checksum "package-lock.json" }}
-          - v2-deps-{{ .Branch }}-
-          - v2-deps-
-      - run: npm install
-      - save_cache:
-          key: v2-deps-{{ .Branch }}-{{ checksum "package-lock.json" }}
-          paths:
-            - ~/.npm
-            - ~/.cache
-      - persist_to_workspace:
-          root: ~/
-          paths:
-            - .cache
-            - app
-            
-  start:
+  test:
     executor: node/default
     steps:
       - checkout
-      - node/install-packages
-      - run:
-          command: npm run ci
-
-  testA:
-    <<: *defaults
-    steps:
-      - attach_workspace:
-          at: ~/
-      - run:
-          name: Running E2E tests A
-          command: npm run ci 
-      - store_test_results:
-          path: results
-      - store_artifacts:
-          path: cypress/videos
-
+      - node/install-packages:
+          cache-path: ~/project/node_modules
+          override-ci-command: npm install
+      - run: sudo apt-get install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
+      - run: npm run ci
 workflows:
-  version: 2
-  build_and_test:
+  test_my_app:
     jobs:
-      - build
-      - testA:
-          requires:
-            - build
+      - test
