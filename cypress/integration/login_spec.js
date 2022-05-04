@@ -9,7 +9,7 @@ describe('login account test', () => {
     const password = 'Password123';
 
     cy.get('input[name=email]').type(username);
-    cy.get('input[name=password]').type(password);
+    cy.get('input[name=password]').type(password).screenshot();;
     cy.get('button[type=submit]').click().screenshot();
   });
 
