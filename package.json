@@ -13,13 +13,15 @@
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-scripts": "5.0.1",
+    "start-server-and-test": "^1.14.0",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "cypress run",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "ci": "start-server-and-test 'http-server -c-1 --silent' 3000 'cypress run --spec cypress/integration/login_spec.js'"
   },
   "browserslist": {
     "production": [
