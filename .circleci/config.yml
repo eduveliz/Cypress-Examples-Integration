@@ -20,7 +20,9 @@ jobs:
           command: $(npm bin)/cypress run --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
       - store_test_results:
           path: results
-      - store_artifacts
+      - store_artifacts:
+          name: get pictures
+          path: /tmp/artifacts
 
 workflows:
   build_and_test:
