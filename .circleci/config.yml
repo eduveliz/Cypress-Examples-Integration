@@ -9,6 +9,17 @@ jobs:
     steps:
       - checkout
       - run:
+         name: Creating Dummy Artifacts
+         command: |
+          echo "my artifact file" > /app/art-1;
+          mkdir /app/artifacts;
+          echo "my artifact files in a dir" > /app/artifacts/art-2;
+      - store_artifacts:
+          path: /app/art-1
+          destination: artifact-file
+      - store_artifacts:
+          path: /app/artifacts
+      - run:
           name: Install project dependencies
           command: npm install
       - run:
@@ -20,9 +31,6 @@ jobs:
           command: $(npm bin)/cypress run --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
       - store_test_results:
           path: results
-      - store_artifacts:
-          name: get pictures
-          path: /tmp/artifacts
 
 workflows:
   build_and_test:
