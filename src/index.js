@@ -13,7 +13,7 @@ root.render(
         <Routes>
             <Route path="/" element={<SignInSide/>}/>
             <Route path="/panel" element={<Panel/>}/>
-            <Route path="/norris" element={<Norris/>}/>
+            <Route path="/panel/norris" element={<Norris/>}/>
         </Routes>
     </BrowserRouter>
 );

@@ -16,10 +16,10 @@ function Norris() {
     }
 
     return (
-        <div style={{padding: '3%', height: '100vh', backgroundColor: '#66213d'}}>
+        <div style={{padding: '3%', minHeight: '100vh', height: '100%', backgroundColor: '#66213d'}}>
 
             <Paper elevation={3} style={{backgroundColor: '#ffac59', padding: '3%'}}>
-                <p style={{fontSize: '5rem'}}> "{joke}"</p>
+                <p id='joke' style={{fontSize: '5rem'}}> "{joke}"</p>
             </Paper>
 
             <div style={{width: '100%', display: 'grid', placeContent: 'center', marginTop: '3rem'}}>
@@ -27,6 +27,7 @@ function Norris() {
                     onClick={() => {
                         getJoke()
                     }}
+                    name='new'
                     variant="outlined"
                     style={{color: '#ffac59', fontSize: '2rem'}}>
                     Get new joke

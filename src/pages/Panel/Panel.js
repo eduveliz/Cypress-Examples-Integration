@@ -1,8 +1,9 @@
-import {Card, CardActionArea, CardActions, CardContent, CardMedia} from "@mui/material";
+import {Card, CardActionArea, CardContent, CardMedia} from "@mui/material";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
+import {useNavigate} from "react-router-dom"
 
 function Panel() {
+    let navigate = useNavigate()
 
     return (
         <div style={{padding: '3%', height: '100vh', backgroundColor: '#005151'}}>
@@ -11,7 +12,10 @@ function Panel() {
             </h1>
             <div style={{padding: '3%', display: 'flex', gap: '3%'}}>
                 <Card sx={{minWidth: 300}}>
-                    <CardActionArea>
+                    <CardActionArea
+                        onClick={() => {
+                            navigate('norris')
+                        }}>
                         <CardMedia
                             component="img"
                             height="140"
@@ -27,11 +31,6 @@ function Panel() {
                             </Typography>
                         </CardContent>
                     </CardActionArea>
-                    <CardActions>
-                        <Button size="small" color="primary">
-                            Review
-                        </Button>
-                    </CardActions>
                 </Card>
 
                 <Card sx={{minWidth: 300}}>
@@ -51,11 +50,6 @@ function Panel() {
                             </Typography>
                         </CardContent>
                     </CardActionArea>
-                    <CardActions>
-                        <Button size="small" color="primary">
-                            Review
-                        </Button>
-                    </CardActions>
                 </Card>
 
                 <Card sx={{minWidth: 300}}>
@@ -75,11 +69,7 @@ function Panel() {
                             </Typography>
                         </CardContent>
                     </CardActionArea>
-                    <CardActions>
-                        <Button size="small" color="primary">
-                            Review
-                        </Button>
-                    </CardActions>
+
                 </Card>
 
                 <Card sx={{minWidth: 300}}>
@@ -99,11 +89,6 @@ function Panel() {
                             </Typography>
                         </CardContent>
                     </CardActionArea>
-                    <CardActions>
-                        <Button size="small" color="primary">
-                            Review
-                        </Button>
-                    </CardActions>
                 </Card>
 
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites name="Mocha Tests" time="2.569" tests="1" failures="0">
-  <testsuite name="Root Suite" timestamp="2022-05-05T15:05:23" tests="0" file="cypress\integration\login_spec.js" failures="0" time="0">
+  <testsuite name="Root Suite" timestamp="2022-05-05T15:05:23" tests="0" file="cypress\integration\intercept_spec.js" failures="0" time="0">
   </testsuite>
   <testsuite name="login account test" timestamp="2022-05-05T15:05:23" tests="1" failures="0" time="2.569">
     <testcase name="login account test Login" time="2.569" classname="Login">
