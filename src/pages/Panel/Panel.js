@@ -34,7 +34,9 @@ function Panel() {
                 </Card>
 
                 <Card sx={{minWidth: 300}}>
-                    <CardActionArea>
+                    <CardActionArea onClick={() => {
+                        navigate('forms')
+                    }}>
                         <CardMedia
                             component="img"
                             height="140"
