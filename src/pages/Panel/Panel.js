@@ -40,12 +40,12 @@ function Panel() {
                         <CardMedia
                             component="img"
                             height="140"
-                            image={require('../../assets/images/soon.png')}
+                            image={require('../../assets/images/forms.png')}
                             alt="green iguana"
                         />
                         <CardContent>
                             <Typography gutterBottom variant="h5" component="div">
-                                FORMS
+                                Forms
                             </Typography>
                             <Typography variant="body2" color="text.secondary">
                                 Complete forms and expect results

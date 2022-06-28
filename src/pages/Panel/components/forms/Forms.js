@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import Grid from "@mui/material/Grid";
-import {Card, FormControl, MenuItem, Select, Slider, TextField} from "@mui/material";
+import {Alert, Card, FormControl, MenuItem, Select, Slider, TextField} from "@mui/material";
 import Button from "@mui/material/Button";
 
 const defaultValues = {
@@ -11,6 +11,7 @@ const defaultValues = {
 };
 const Form = () => {
     const [formValues, setFormValues] = useState(defaultValues);
+    const [showNotification, setShowNotification] = useState(false);
     const handleInputChange = (e) => {
         const {name, value} = e.target;
         setFormValues({
@@ -26,12 +27,21 @@ const Form = () => {
     };
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log(formValues);
+        setShowNotification(true)
     };
+
     return (
-        <div style={{display: 'grid', placeContent: 'center', width: "100%", height: "100vh"}}>
+        <div style={{
+            backgroundColor: '#CCC5B9',
+            display: 'grid',
+            placeContent: 'center',
+            width: "100%",
+            height: "100vh"
+        }}>
+
             <Card sx={{maxWidth: 445, padding: 10}}>
-                <form onSubmit={handleSubmit}>
+                <h1>Basic Form</h1>
+                <form id="contact" onSubmit={handleSubmit}>
                     <Grid container direction="column">
                         <Grid item>
                             <TextField
@@ -57,7 +67,7 @@ const Form = () => {
                         </Grid>
 
                         <Grid item sx={{marginTop: 5}}>
-                            <FormControl>
+                            <FormControl id='select'>
                                 <Select
                                     sx={{width: "400px"}}
                                     name="os"
@@ -116,6 +126,13 @@ const Form = () => {
                         <Button variant="contained" color="primary" type="submit">
                             Submit
                         </Button>
+                        {
+                            showNotification && (
+                                <Alert sx={{marginTop: 3}} variant="filled" severity="success">
+                                    Send form information complete!!
+                                </Alert>
+                            )
+                        }
                     </Grid>
                 </form>
             </Card>
