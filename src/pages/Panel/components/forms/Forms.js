@@ -1,13 +1,11 @@
 import React, {useState} from "react";
 import Grid from "@mui/material/Grid";
-import {FormControl, FormControlLabel, FormLabel, MenuItem, RadioGroup, Select, Slider, TextField} from "@mui/material";
+import {Card, FormControl, MenuItem, Select, Slider, TextField} from "@mui/material";
 import Button from "@mui/material/Button";
-import {Radio} from "@mui/icons-material";
 
 const defaultValues = {
     name: "",
     age: 0,
-    gender: "",
     os: "",
     favoriteNumber: 0,
 };
@@ -31,110 +29,97 @@ const Form = () => {
         console.log(formValues);
     };
     return (
-        <form onSubmit={handleSubmit}>
-            <Grid container alignItems="center" justify="center" direction="column">
-                <Grid item>
-                    <TextField
-                        id="name-input"
-                        name="name"
-                        label="Name"
-                        type="text"
-                        value={formValues.name}
-                        onChange={handleInputChange}
-                    />
-                </Grid>
-                <Grid item>
-                    <TextField
-                        id="age-input"
-                        name="age"
-                        label="Age"
-                        type="number"
-                        value={formValues.age}
-                        onChange={handleInputChange}
-                    />
-                </Grid>
-                <Grid item>
-                    <FormControl>
-                        <FormLabel>Gender</FormLabel>
-                        <RadioGroup
-                            name="gender"
-                            value={formValues.gender}
-                            onChange={handleInputChange}
-                            row
-                        >
-                            <FormControlLabel
-                                key="male"
-                                value="male"
-                                control={<Radio size="small"/>}
-                                label="Male"
+        <div style={{display: 'grid', placeContent: 'center', width: "100%", height: "100vh"}}>
+            <Card sx={{maxWidth: 445, padding: 10}}>
+                <form onSubmit={handleSubmit}>
+                    <Grid container direction="column">
+                        <Grid item>
+                            <TextField
+                                sx={{width: "400px"}}
+                                id="name-input"
+                                name="name"
+                                label="Name"
+                                type="text"
+                                value={formValues.name}
+                                onChange={handleInputChange}
                             />
-                            <FormControlLabel
-                                key="female"
-                                value="female"
-                                control={<Radio size="small"/>}
-                                label="Female"
+                        </Grid>
+                        <Grid item sx={{marginTop: 5}}>
+                            <TextField
+                                sx={{width: "400px"}}
+                                id="age-input"
+                                name="age"
+                                label="Age"
+                                type="number"
+                                value={formValues.age}
+                                onChange={handleInputChange}
                             />
-                            <FormControlLabel
-                                key="other"
-                                value="other"
-                                control={<Radio size="small"/>}
-                                label="Other"
-                            />
-                        </RadioGroup>
-                    </FormControl>
-                </Grid>
-                <Grid item>
-                    <FormControl>
-                        <Select
-                            name="os"
-                            value={formValues.os}
-                            onChange={handleInputChange}
-                        >
-                            <MenuItem key="mac" value="mac">
-                                Mac
-                            </MenuItem>
-                            <MenuItem key="windows" value="windows">
-                                Windows
-                            </MenuItem>
-                            <MenuItem key="linux " value="linux">
-                                Linux
-                            </MenuItem>
-                        </Select>
-                    </FormControl>
-                </Grid>
-                <Grid item>
-                    <div style={{width: "400px"}}>
-                        Favorite Number
-                        <Slider
-                            value={formValues.favoriteNumber}
-                            onChange={handleSliderChange("favoriteNumber")}
-                            defaultValue={1}
-                            step={1}
-                            min={1}
-                            max={3}
-                            marks={[
-                                {
-                                    value: 1,
-                                    label: "1",
-                                },
-                                {
-                                    value: 2,
-                                    label: "2",
-                                },
-                                {
-                                    value: 3,
-                                    label: "3",
-                                },
-                            ]}
-                            valueLabelDisplay="off"
-                        />
-                    </div>
-                </Grid>
-                <Button variant="contained" color="primary" type="submit">
-                    Submit
-                </Button>
-            </Grid>
-        </form>
+                        </Grid>
+
+                        <Grid item sx={{marginTop: 5}}>
+                            <FormControl>
+                                <Select
+                                    sx={{width: "400px"}}
+                                    name="os"
+                                    placeholder={'System'}
+                                    value={formValues.os}
+                                    onChange={handleInputChange}
+                                >
+                                    <MenuItem key="mac" value="mac">
+                                        Mac
+                                    </MenuItem>
+                                    <MenuItem key="windows" value="windows">
+                                        Windows
+                                    </MenuItem>
+                                    <MenuItem key="linux " value="linux">
+                                        Linux
+                                    </MenuItem>
+                                </Select>
+                            </FormControl>
+                        </Grid>
+                        <Grid item sx={{marginTop: 5, marginBottom: 5}}>
+                            <div style={{width: "400px"}}>
+                                Favorite Number
+                                <Slider
+                                    value={formValues.favoriteNumber}
+                                    onChange={handleSliderChange("favoriteNumber")}
+                                    defaultValue={1}
+                                    step={1}
+                                    min={1}
+                                    max={5}
+                                    marks={[
+                                        {
+                                            value: 1,
+                                            label: "1",
+                                        },
+                                        {
+                                            value: 2,
+                                            label: "2",
+                                        },
+                                        {
+                                            value: 3,
+                                            label: "3",
+                                        },
+                                        {
+                                            value: 4,
+                                            label: "4",
+                                        },
+                                        {
+                                            value: 5,
+                                            label: "5",
+                                        },
+                                    ]}
+                                    valueLabelDisplay="off"
+                                />
+                            </div>
+                        </Grid>
+                        <Button variant="contained" color="primary" type="submit">
+                            Submit
+                        </Button>
+                    </Grid>
+                </form>
+            </Card>
+        </div>
     );
 };
 export default Form;
