@@ -15,7 +15,7 @@ describe('Login, intercept test', () => {
     it('panel', () => {
         cy.screenshot('panel');
         cy.url().should('include', '/panel')
-        cy.contains('FORMS').click();
+        cy.contains('Forms').click();
     });
 
 
